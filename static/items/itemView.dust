@@ -6,6 +6,8 @@
 		<img src="../img/star_dark_grey.png"  class="star"/>
 		<img src="../img/star_dark_grey.png"  class="star"/>
 		<img src="../img/star_dark_grey.png"  class="star"/>
+		<br/>
+		<div class="item_delete">Remove</div>
 	</div> 
 </div>
 

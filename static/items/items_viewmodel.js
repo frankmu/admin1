@@ -36,14 +36,17 @@ var Item = Backbone.Model.extend({
 	},
 	
 	remove: function(){
-		function onErr(err) {
-			alert('Error '+err.status);
+		// remove item from database if present in database
+		if(this.get('token')){
+			function onErr(err) {
+				alert('Error '+err.status);
+			}
+			var postBody = {screen_token: this.get('screen_token'), token: this.get('token')};
+			var that = this;
+			API.post('item_delete', postBody, true, onErr, function(res){
+				console.log(res);
+			});
 		}
-		var postBody = {screen_token: this.get('screen_token'), token: this.get('token')};
-		var that = this;
-		API.post('item_delete', postBody, true, onErr, function(res){
-			console.log(res);
-		});
 	}
 });
 
@@ -57,6 +60,7 @@ var ItemView = Backbone.View.extend({
 		"click .item_delete": "delete_this",
 		"click .item_edit": "select_this",
 		"blur textarea": "update_info"
+		//"click #+"this.model.get('token') ? this.model.get('token') : this.model.get('timestamp')"+":"rate"
 	},
 	initialize: function(){
 		// every function that uses 'this' as the current object should be in here
@@ -70,7 +74,8 @@ var ItemView = Backbone.View.extend({
 		dust.render("itemView", data, function(err, out) {
 			if (!err){
 				$(that.el).html(out);
-				$(that.el).attr('id', that.model.get('token'));
+				$(that.el).attr('id', that.model.get('token') ? that.model.get('token') : that.model.get('timestamp'));
+				$(that.el).attr('draggable', true);
 			} else{
 				return console.log(err);
 			}
@@ -92,11 +97,20 @@ var ItemView = Backbone.View.extend({
 			this.collection.remove(this.model);
 		}
 	},
+	
+	/*
+		Set item rating by clicking on the stars
+	*;
+	rate: function(){
+		
+	},
 	/*
 		Update Model on any change
 	*/
 	update_info: function(){
-		this.model.set({name: $('#'+this.model.get('token')+' .item_name').val(), description: $('#'+this.model.get('token')+' .item_description').val(), price: $('#'+this.model.get('token')+' .item_price').val(), changed:true});
+		var id = this.model.get('token') ? this.model.get('token') : this.model.get('timestamp');
+		this.model.set({name: $('#'+id+' .item_name').val(), description: $('#'+id+' .item_description').val(), price: $('#'+id+' .item_price').val(), changed:true});
+		//this.model.set({name: $('#'+this.model.get('token')+' .item_name').val(), description: $('#'+this.model.get('token')+' .item_description').val(), price: $('#'+this.model.get('token')+' .item_price').val(), changed:true});
 	}
 	
 });
@@ -127,12 +141,15 @@ var ItemsView = Backbone.View.extend({
 		this.collection.each(function(Item) {
 		  var itemView = new ItemView({ model : Item, collection:this.collection });
 		  $(this.el).append(itemView.render().el);
+		  // set stars rating
+		  var id = Item.get('token') ? Item.get('token') : Item.get('timestamp');
+		  setStarsRating('#'+id+' .star', Item.get('rating'));
 		}, this);
 		
 		//also append addOrg button
 		$(this.el).prepend('<div class="item_add">Add Item</div>');
 		$(this.el).prepend('<h1>'+this.model.get('name')+' Items</h1>');
-		$(this.el).append('<h1 class="save_all">Save all changes</h1>');
+		$(this.el).append('<div class="save_all">Save all changes</div>');
 		
 		return this;
 	},
@@ -141,7 +158,7 @@ var ItemsView = Backbone.View.extend({
 	*/
 	add_item: function(){
 	  // create new blank Model with screen token
-	  var newItem = new Item({'screen_token':this.model.get('token')});
+	  var newItem = new Item({'screen_token':this.model.get('token'), 'timestamp': new Date().getTime()});
 	  // add this model to collection
 	  this.collection.add(newItem);
 	  // render blank view
@@ -181,48 +198,4 @@ var Items = Backbone.Collection.extend({
   url : function() {
     return CONF['api-host']+"/items?screen_token="+this.token;
   }
-});
-
-
-/***
-	ADD ITEM VIEW. Model: ScreenModel, Collection:ItemsCollection
-***/
-var AddItemView = Backbone.View.extend({
-	tagName: 'div',
-	className: 'addItem_form',
-	events:{
-		"click #item_save": "item_save",
-		"click #item_cancel": "item_cancel",
-		"click input": "select_type"
-	},
-	initialize: function(){
-		// every function that uses 'this' as the current object should be in here
-		_.bindAll(this, 'render', 'item_save', 'item_cancel', 'select_type'); 
-	},
-	render: function(){
-		var form = '<button id="item_cancel">Cancel</button><button id="item_save">Save</button>'
-		$(this.el).html(form);
-		return this;
-	},
-	
-	select_type: function(ev){
-		this.type = $(ev.target).val();
-	},
-	
-	item_save: function(){
-		// new org model
-		var newItem = new Item({'screen_token': this.model.get('token'), 'name':$('').val(), imgPath: $('').val(), description: $('').val(), price: $('').val(), rating: $('').val()});
-		// add Org model to collection
-		this.collection.add(newItem);
-		//update database
-		newItem.save();
-		//remove this view
-		$(this.el).remove();
-	},
-	
-	item_cancel: function(){
-		//remove this view
-		$(this.el).remove();
-	}
-
 });

@@ -1,9 +1,11 @@
 .item_view{
 	list-style:none;
 	padding:10px;
-	border: 2px solid blue;
+	border: 2px solid black;
 	width:600px;
 	margin:10px;
+	background-color: #CCCCCC;
+	cursor: move;
 }
 
 .pictures{
@@ -41,4 +43,38 @@
 .input{
 	width:300px;
 	resize:none;
+}
+
+.item_delete{
+	width:56px;
+	float:left;
+	text-align: center;
+	border-radius: 5px;
+	margin: 2px;
+	margin-top:20px;
+	-moz-border-radius: 5px;
+	cursor: pointer;
+	box-shadow: inset 0px 0px 10px red;
+}
+
+.save_all{
+	font-size:1.5em;
+	font-weight:bold;
+	width:200px;
+	text-align:center;
+	padding:10px;
+	border: 1px solid black;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.item_add{
+	font-size:1.5em;
+	font-weight:bold;
+	width:200px;
+	text-align:center;
+	padding:10px;
+	border: 1px solid black;
+	border-radius: 5px;
+	cursor: pointer;
 }

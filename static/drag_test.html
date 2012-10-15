@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<script src="lib/jquery-1.7.1.js"></script>
+
+<script>
+$(document).ready(function() {
+	var dragSrcEl = null;
+	var Drag={
+		startX: 0,
+		startY: 0
+	};
+	
+	function handleDragStart(e){
+		$(this).addClass('selected');
+		dragSrcEl = this;
+		Drag.startX = e.pageX;
+		Drag.startY = e.pageY;
+	}
+	
+	function handleDragEnd(e){
+		$(this).removeClass('selected');
+	}
+	
+	function handleDragEnter(e) {
+	// this / e.target is the current hover target.
+		Drag.deltaY = e.pageY - Drag.startY;
+		Drag.offset = Drag.deltaY>0 ? -110 : 110;
+		
+		if (dragSrcEl == this){
+		}
+		else{ 
+			$(this).css({'webkitTransitionDuration': '300ms','webkitTransform': 'translate3d(0px, '+Drag.offset+'px, 0px)'});
+			var t = $(this).css('top');
+			console.log(t);
+		}
+	}
+	
+	
+	$('.item').each(function(i){
+		$('.item')[i].addEventListener('dragstart', handleDragStart, false);
+		$('.item')[i].addEventListener('dragend', handleDragEnd, false);
+		//$('.item')[i].addEventListener('dragover', handleDragOver, false);
+		$('.item')[i].addEventListener('dragenter', handleDragEnter, false);
+		//$('.item')[i].addEventListener('dragleave', handleDragLeave, false);
+	});
+});
+</script>
+
+<style>
+#list{
+	width:500px;
+	position:absolute;
+	left:0;
+	top:0;
+}
+
+.item{
+	width:90%;
+	height:100px;
+	position:absolute;
+	left:10px;
+	border:1px solid black;
+	cursor: move;
+	background-color:#666666;
+}
+
+.selected{
+	border:1px solid red;
+	background-color:#CCCCCC;
+}
+</style>
+</head>
+
+<body>
+
+<ul id="list">
+	<li class="item" draggable="true" style="top:0px;"></li>
+    <li class="item" draggable="true" style="top:110px;"></li>
+    <li class="item" draggable="true" style="top:220px;"></li>
+    <li class="item" draggable="true" style="top:330px;"></li>
+    <li class="item" draggable="true" style="top:440px;"></li>
+    <li class="item" draggable="true" style="top:550px;"></li>
+</ul>
+
+</body>
+</html>
