@@ -1,0 +1,49 @@
+.org_view{
+	width: 150px;
+	height:100px;
+	float:left;
+	margin:10px;
+	
+}
+
+.org_add{
+	width: 100px;
+	height:100px;
+	float:left;
+	border: 1px dashed black;
+	margin:10px;
+	line-height:100px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.org_name{
+	width: 120px;
+	height:50px;
+	text-align: center;
+	line-height:50px;
+	font-weight:bold;
+	border: 1px solid #666666;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	box-shadow: inset 0px 0px 20px rgba(0,0,0,1);
+}
+
+.org_edit, .org_delete{
+	width:56px;
+	float:left;
+	text-align: center;
+	border-radius: 5px;
+	margin: 2px;
+	-moz-border-radius: 5px;
+	cursor: pointer;
+}
+
+.org_delete{
+	box-shadow: inset 0px 0px 10px red;
+}
+
+.org_edit{
+	box-shadow: inset 0px 0px 10px green;
+}
+

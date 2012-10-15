@@ -1,0 +1,70 @@
+<li class="item_view">
+<div class="pictures">
+	<img src="{imgPath}" class="item_image" alt="drag image here"/><br/>
+    <div class="item_rating">
+		<img src="../img/star_dark_grey.png"  class="star"/>
+		<img src="../img/star_dark_grey.png"  class="star"/>
+		<img src="../img/star_dark_grey.png"  class="star"/>
+		<img src="../img/star_dark_grey.png"  class="star"/>
+		<img src="../img/star_dark_grey.png"  class="star"/>
+	</div> 
+</div>
+
+<div class="item_info">
+	<div class='label'>Name:</div>
+    <textarea rows="1" class="input" class="item_name" resizeable:>{name}</textarea><br/>
+    <div class='label'>Description:</div>
+    <textarea rows="5" class="input" class="item_description">{description}</textarea><br/>
+    <div class='label'>Price:</div>
+    <textarea rows="1" class="input" class="item_price">{price}</textarea><br/>
+    
+	  
+</div>
+<div style="clear:both;"></div>
+
+</li>
+<style>
+.item_view{
+	list-style:none;
+	padding:10px;
+	border: 2px solid blue;
+	width:600px;
+}
+
+.pictures{
+	width:130px;
+	float:left;
+}
+
+.item_image{
+	width:100px;
+	height:70px;
+}	
+
+.item_rating{
+	margin-top: 10px;
+	height:20px;
+}
+
+.star{
+	height:100%;
+}	
+
+.item_info{
+	width:400px;
+	float:left;
+}
+
+.label{
+	float:left;
+	width:80px;
+	text-align:right;
+	margin-right: 10px;
+	clear:left;
+}
+
+.input{
+	width:300px;
+	resize:none;
+}
+</style>

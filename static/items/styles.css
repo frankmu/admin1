@@ -1,0 +1,44 @@
+.item_view{
+	list-style:none;
+	padding:10px;
+	border: 2px solid blue;
+	width:600px;
+	margin:10px;
+}
+
+.pictures{
+	width:130px;
+	float:left;
+}
+
+.item_image{
+	width:100px;
+	height:70px;
+}	
+
+.item_rating{
+	margin-top: 10px;
+	height:20px;
+}
+
+.star{
+	height:100%;
+}	
+
+.item_info{
+	width:400px;
+	float:left;
+}
+
+.label{
+	float:left;
+	width:80px;
+	text-align:right;
+	margin-right: 10px;
+	clear:left;
+}
+
+.input{
+	width:300px;
+	resize:none;
+}

@@ -1,0 +1,20 @@
+<div class="pictures">
+	<img src="{imgPath}" class="item_image" alt="drag image here"/><br/>
+    <div class="item_rating">
+		<img src="../img/star_dark_grey.png"  class="star"/>
+		<img src="../img/star_dark_grey.png"  class="star"/>
+		<img src="../img/star_dark_grey.png"  class="star"/>
+		<img src="../img/star_dark_grey.png"  class="star"/>
+		<img src="../img/star_dark_grey.png"  class="star"/>
+	</div> 
+</div>
+
+<div class="item_info">
+	<div class='label'>Name:</div>
+    <textarea rows="1" class="input item_name">{name}</textarea><br/>
+    <div class='label'>Description:</div>
+    <textarea rows="5" class="input item_description">{description}</textarea><br/>
+    <div class='label'>Price:</div>
+    <textarea rows="1" class="input item_price">{price}</textarea><br/> 
+</div>
+<div style="clear:both;"></div>
